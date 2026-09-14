@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Smart-Spend</string>
+    <string name="smartspend">SmartSpend</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="don_t_have_an_account_register">Don\'t have an account? Register</string>
+</resources>
