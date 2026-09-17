@@ -36,5 +36,13 @@ class HomeActivity : AppCompatActivity() {
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
         }
+
+        findViewById<Button>(R.id.btnAddTransaction).setOnClickListener {
+            startActivity(Intent(this, com.chirag.smart_spend.transactions.AddTransactionActivity::class.java))
+        }
+
+        findViewById<Button>(R.id.btnViewTransactions).setOnClickListener {
+            startActivity(Intent(this, com.chirag.smart_spend.transactions.TransactionListActivity::class.java))
+        }
     }
 }

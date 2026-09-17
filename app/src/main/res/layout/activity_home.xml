@@ -20,4 +20,18 @@
         android:layout_height="wrap_content"
         android:text="Logout" />
 
+    <Button
+        android:id="@+id/btnAddTransaction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Transaction"
+        android:layout_marginTop="16dp" />
+
+    <Button
+        android:id="@+id/btnViewTransactions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="View Transactions"
+        android:layout_marginTop="16dp" />
+
 </LinearLayout>
