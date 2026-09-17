@@ -44,5 +44,9 @@ class HomeActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btnViewTransactions).setOnClickListener {
             startActivity(Intent(this, com.chirag.smart_spend.transactions.TransactionListActivity::class.java))
         }
+
+        findViewById<Button>(R.id.btnEnableNotificationAccess).setOnClickListener {
+            startActivity(Intent(android.provider.Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS))
+        }
     }
 }
