@@ -54,12 +54,14 @@ class NotificationListener : NotificationListenerService() {
             return
         }
 
+        val category = com.chirag.smart_spend.categorization.CategoryMapper.categorize(parsed.merchant)
+
         val transaction = Transaction(
             userId = userId,
             amount = parsed.amount,
             type = parsed.type,
-            category = parsed.merchant, // will be refined by Module 6 (Auto-Categorization)
-            note = "Auto-detected from $sourcePackage",
+            category = category,
+            note = "${parsed.merchant} (Auto-detected from $sourcePackage)",
             date = System.currentTimeMillis(),
             source = "auto"
         )
@@ -67,7 +69,7 @@ class NotificationListener : NotificationListenerService() {
         FirebaseFirestore.getInstance().collection("transactions")
             .add(transaction)
             .addOnSuccessListener {
-                Log.d(TAG, "AUTO-SAVED to Firestore successfully")
+                Log.d(TAG, "AUTO-SAVED to Firestore successfully — Category: $category")
             }
             .addOnFailureListener { e ->
                 Log.e(TAG, "AUTO-SAVE FAILED: ${e.message}")
