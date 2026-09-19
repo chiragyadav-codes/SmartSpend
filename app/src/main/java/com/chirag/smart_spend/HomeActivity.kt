@@ -48,5 +48,9 @@ class HomeActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btnEnableNotificationAccess).setOnClickListener {
             startActivity(Intent(android.provider.Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS))
         }
+
+        findViewById<Button>(R.id.btnMonthlySummary).setOnClickListener {
+            startActivity(Intent(this, com.chirag.smart_spend.reports.MonthlySummaryActivity::class.java))
+        }
     }
 }

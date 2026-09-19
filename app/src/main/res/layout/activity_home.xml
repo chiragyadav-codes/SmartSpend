@@ -40,4 +40,12 @@
         android:layout_height="wrap_content"
         android:text="Enable Notification Access"
         android:layout_marginTop="16dp" />
+
+    <Button
+        android:id="@+id/btnMonthlySummary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Monthly Summary"
+        android:layout_marginTop="16dp" />
+
 </LinearLayout>

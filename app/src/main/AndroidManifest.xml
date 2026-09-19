@@ -42,7 +42,9 @@
             android:name=".transactions.TransactionListActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
-
+        <activity
+            android:name=".reports.MonthlySummaryActivity"
+            android:exported="false" />
         <service
             android:name=".notification.NotificationListener"
             android:label="SmartSpend Notification Listener"
