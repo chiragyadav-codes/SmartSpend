@@ -26,6 +26,8 @@ import com.github.mikephil.charting.components.XAxis
 
 import com.chirag.smart_spend.export.CsvExporter
 import android.content.Intent
+
+import com.chirag.smart_spend.investments.InvestmentSuggestionEngine
 class MonthlySummaryActivity : AppCompatActivity() {
 
     private val repository = ReportRepository()
@@ -39,6 +41,8 @@ class MonthlySummaryActivity : AppCompatActivity() {
 
     private lateinit var pieChart: PieChart
     private lateinit var barChart: BarChart
+
+    private lateinit var tvInvestmentSuggestion: TextView
 
     private val csvExporter = CsvExporter()
     private var currentTransactions: List<com.chirag.smart_spend.transactions.model.Transaction> = emptyList()
@@ -55,6 +59,7 @@ class MonthlySummaryActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.rvCategorySummary)
         pieChart = findViewById(R.id.pieChart)
         barChart = findViewById(R.id.barChart)
+        tvInvestmentSuggestion = findViewById(R.id.tvInvestmentSuggestion)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
 
@@ -98,6 +103,8 @@ class MonthlySummaryActivity : AppCompatActivity() {
                 tvTotalIncome.text = "Income: ₹$totalIncome"
                 tvTotalExpense.text = "Expense: ₹$totalExpense"
                 tvNetSavings.text = "Net Savings: ₹$netSavings"
+
+                tvInvestmentSuggestion.text = InvestmentSuggestionEngine.getSuggestion(totalIncome, totalExpense)
 
                 val summaries = repository.groupByCategory(transactions)
 
