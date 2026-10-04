@@ -24,6 +24,8 @@ import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.components.XAxis
 
+import com.chirag.smart_spend.export.CsvExporter
+import android.content.Intent
 class MonthlySummaryActivity : AppCompatActivity() {
 
     private val repository = ReportRepository()
@@ -37,6 +39,10 @@ class MonthlySummaryActivity : AppCompatActivity() {
 
     private lateinit var pieChart: PieChart
     private lateinit var barChart: BarChart
+
+    private val csvExporter = CsvExporter()
+    private var currentTransactions: List<com.chirag.smart_spend.transactions.model.Transaction> = emptyList()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,6 +69,10 @@ class MonthlySummaryActivity : AppCompatActivity() {
         }
 
         loadMonthData()
+
+        findViewById<Button>(R.id.btnExportCsv).setOnClickListener {
+            exportCurrentMonth()
+        }
     }
 
     private fun loadMonthData() {
@@ -76,6 +86,11 @@ class MonthlySummaryActivity : AppCompatActivity() {
             year = year,
             month = month,
             onResult = { transactions ->
+
+                // IMPORTANT: Store the loaded transactions
+                // so Export CSV can use them.
+                currentTransactions = transactions
+
                 val totalIncome = repository.getTotalIncome(transactions)
                 val totalExpense = repository.getTotalExpense(transactions)
                 val netSavings = totalIncome - totalExpense
@@ -85,14 +100,45 @@ class MonthlySummaryActivity : AppCompatActivity() {
                 tvNetSavings.text = "Net Savings: ₹$netSavings"
 
                 val summaries = repository.groupByCategory(transactions)
+
                 recyclerView.adapter = CategorySummaryAdapter(summaries)
+
                 updatePieChart(summaries)
                 updateBarChart(totalIncome, totalExpense)
             },
             onError = { e ->
-                Toast.makeText(this, "Failed to load: ${e.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this,
+                    "Failed to load: ${e.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         )
+    }
+
+    private fun exportCurrentMonth() {
+        if (currentTransactions.isEmpty()) {
+            Toast.makeText(this, "No transactions to export", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val monthFormat = SimpleDateFormat("MMM_yyyy", Locale.getDefault())
+        val fileName = "SmartSpend_${monthFormat.format(currentCalendar.time)}.csv"
+
+        val uri = csvExporter.exportTransactions(this, currentTransactions, fileName)
+
+        if (uri != null) {
+            Toast.makeText(this, "Exported to Downloads: $fileName", Toast.LENGTH_LONG).show()
+
+            val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                type = "text/csv"
+                putExtra(Intent.EXTRA_STREAM, uri)
+                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            }
+            startActivity(Intent.createChooser(shareIntent, "Share CSV via"))
+        } else {
+            Toast.makeText(this, "Export failed", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun updatePieChart(summaries: List<CategorySummary>) {
@@ -150,4 +196,5 @@ class MonthlySummaryActivity : AppCompatActivity() {
         barChart.axisRight.isEnabled = false
         barChart.invalidate()
     }
+
 }
