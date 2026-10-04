@@ -1,66 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="24dp">
+    android:background="#F5F7FA">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add Transaction"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="24dp" />
+        android:orientation="vertical"
+        android:padding="24dp">
 
-    <RadioGroup
-        android:id="@+id/rgType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="16dp">
-
-        <RadioButton
-            android:id="@+id/rbIncome"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Income" />
+            android:text="Add Transaction"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="#1A1A1A"
+            android:textColorHint="#9E9E9E"
+            android:layout_marginBottom="24dp" />
 
-        <RadioButton
-            android:id="@+id/rbExpense"
-            android:layout_width="wrap_content"
+        <RadioGroup
+            android:id="@+id/rgType"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Expense"
-            android:checked="true"
-            android:layout_marginStart="24dp" />
-    </RadioGroup>
+            android:orientation="horizontal"
+            android:layout_marginBottom="20dp">
 
-    <EditText
-        android:id="@+id/etAmount"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Amount"
-        android:inputType="numberDecimal"
-        android:layout_marginBottom="12dp" />
+            <RadioButton
+                android:id="@+id/rbIncome"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Income"
+                android:textColor="#2E7D32" />
 
-    <EditText
-        android:id="@+id/etCategory"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Category (e.g. Food, Travel, Salary)"
-        android:layout_marginBottom="12dp" />
+            <RadioButton
+                android:id="@+id/rbExpense"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Expense"
+                android:textColor="#C62828"
+                android:checked="true" />
+        </RadioGroup>
 
-    <EditText
-        android:id="@+id/etNote"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Note (optional)"
-        android:layout_marginBottom="20dp" />
+        <EditText
+            android:id="@+id/etAmount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Amount"
+            android:inputType="numberDecimal"
+            android:padding="14dp"
+            android:textColor="#1A1A1A"
+            android:textColorHint="#9E9E9E"
+            android:background="@drawable/edittext_rounded_bg"
+            android:layout_marginBottom="14dp" />
 
-    <Button
-        android:id="@+id/btnSaveTransaction"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Save Transaction" />
+        <EditText
+            android:id="@+id/etCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Category (e.g. Food, Travel, Salary)"
+            android:padding="14dp"
+            android:textColor="#1A1A1A"
+            android:textColorHint="#9E9E9E"
+            android:background="@drawable/edittext_rounded_bg"
+            android:layout_marginBottom="14dp" />
 
-</LinearLayout>
+        <EditText
+            android:id="@+id/etNote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Note (optional)"
+            android:padding="14dp"
+            android:textColor="#1A1A1A"
+            android:textColorHint="#9E9E9E"
+            android:background="@drawable/edittext_rounded_bg"
+            android:layout_marginBottom="24dp" />
+
+        <Button
+            android:id="@+id/btnSaveTransaction"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:text="Save Transaction"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#1565C0" />
+
+    </LinearLayout>
+
+</ScrollView>

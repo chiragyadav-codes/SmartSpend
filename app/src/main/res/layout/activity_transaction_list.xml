@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#F5F7FA"
     android:padding="16dp">
 
     <TextView
@@ -11,7 +12,18 @@
         android:text="Your Transactions"
         android:textSize="22sp"
         android:textStyle="bold"
+        android:textColor="#1A1A1A"
         android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:id="@+id/tvEmptyState"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="No transactions yet.&#10;Tap the button below to add your first one!"
+        android:textSize="16sp"
+        android:textColor="#888888"
+        android:gravity="center"
+        android:visibility="gone" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvTransactions"

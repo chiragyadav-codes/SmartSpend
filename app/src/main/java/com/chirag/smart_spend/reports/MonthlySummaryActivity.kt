@@ -44,6 +44,8 @@ class MonthlySummaryActivity : AppCompatActivity() {
 
     private lateinit var tvInvestmentSuggestion: TextView
 
+    private lateinit var tvSummaryEmptyState: TextView
+
     private val csvExporter = CsvExporter()
     private var currentTransactions: List<com.chirag.smart_spend.transactions.model.Transaction> = emptyList()
 
@@ -60,6 +62,8 @@ class MonthlySummaryActivity : AppCompatActivity() {
         pieChart = findViewById(R.id.pieChart)
         barChart = findViewById(R.id.barChart)
         tvInvestmentSuggestion = findViewById(R.id.tvInvestmentSuggestion)
+
+        tvSummaryEmptyState = findViewById(R.id.tvSummaryEmptyState)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
 
@@ -112,6 +116,16 @@ class MonthlySummaryActivity : AppCompatActivity() {
 
                 updatePieChart(summaries)
                 updateBarChart(totalIncome, totalExpense)
+                
+                if (transactions.isEmpty()) {
+                    tvSummaryEmptyState.visibility = android.view.View.VISIBLE
+                    pieChart.visibility = android.view.View.GONE
+                    barChart.visibility = android.view.View.GONE
+                } else {
+                    tvSummaryEmptyState.visibility = android.view.View.GONE
+                    pieChart.visibility = android.view.View.VISIBLE
+                    barChart.visibility = android.view.View.VISIBLE
+                }
             },
             onError = { e ->
                 Toast.makeText(

@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +20,8 @@ class TransactionListActivity : AppCompatActivity() {
     private lateinit var db: FirebaseFirestore
     private lateinit var recyclerView: RecyclerView
 
+    private lateinit var tvEmptyState: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_transaction_list)
@@ -27,6 +30,7 @@ class TransactionListActivity : AppCompatActivity() {
         db = FirebaseFirestore.getInstance()
 
         recyclerView = findViewById(R.id.rvTransactions)
+        tvEmptyState = findViewById(R.id.tvEmptyState)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         loadTransactions()
@@ -58,6 +62,7 @@ class TransactionListActivity : AppCompatActivity() {
 
                 recyclerView.adapter = TransactionAdapter(
                     transactions = transactionList,
+
                     onItemClick = { transaction ->
                         val intent = Intent(this, AddTransactionActivity::class.java)
                         intent.putExtra("transactionId", transaction.id)
@@ -67,6 +72,13 @@ class TransactionListActivity : AppCompatActivity() {
                         showDeleteConfirmation(transaction)
                     }
                 )
+                if (transactionList.isEmpty()) {
+                    tvEmptyState.visibility = android.view.View.VISIBLE
+                    recyclerView.visibility = android.view.View.GONE
+                } else {
+                    tvEmptyState.visibility = android.view.View.GONE
+                    recyclerView.visibility = android.view.View.VISIBLE
+                }
             }
             .addOnFailureListener { e ->
                 Toast.makeText(this, "Failed to load: ${e.message}", Toast.LENGTH_SHORT).show()

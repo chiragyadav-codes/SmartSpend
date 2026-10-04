@@ -26,7 +26,8 @@
                 android:text="Welcome"
                 android:textSize="22sp"
                 android:textStyle="bold"
-                android:textColor="#1A1A1A" />
+                android:textColor="#1A1A1A"
+                android:textColorHint="#9E9E9E"/>
 
             <TextView
                 android:id="@+id/btnLogout"
@@ -129,9 +130,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="₹0"
+                            android:textColor="#FFC107"
                             android:textSize="18sp"
-                            android:textStyle="bold"
-                            android:textColor="#1565C0" />
+                            android:textStyle="bold" />
                     </LinearLayout>
 
                 </LinearLayout>
