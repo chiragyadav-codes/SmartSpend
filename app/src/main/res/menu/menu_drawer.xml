@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:id="@+id/group_main">
+        <item
+            android:id="@+id/drawer_all_transactions"
+            android:title="All transactions" />
+        <item
+            android:id="@+id/drawer_notification_access"
+            android:title="Notification access" />
+        <item
+            android:id="@+id/drawer_dark_mode"
+            android:title="Dark mode" />
+    </group>
+
+    <group android:id="@+id/group_account">
+        <item
+            android:id="@+id/drawer_about"
+            android:title="About" />
+        <item
+            android:id="@+id/drawer_logout"
+            android:title="Logout" />
+    </group>
+
+</menu>

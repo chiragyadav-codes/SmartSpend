@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="sm_background">#121212</color>
+    <color name="sm_surface">#1E1E1E</color>
+    <color name="sm_text_primary">#ECEFF1</color>
+    <color name="sm_text_secondary">#B0BEC5</color>
+    <color name="sm_text_hint">#78909C</color>
+    <color name="sm_border">#37474F</color>
+    <color name="sm_primary">#1E88E5</color>
+    <color name="sm_on_primary">#FFFFFF</color>
+    <color name="sm_income">#66BB6A</color>
+    <color name="sm_expense">#EF5350</color>
+    <color name="sm_suggestion_bg">#263238</color>
+    <color name="sm_input_border">#FFFFFF</color>
+</resources>

@@ -1,7 +1,15 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
     <style name="Base.Theme.SmartSpend" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="colorPrimary">@color/sm_primary</item>
+        <item name="colorOnPrimary">@color/sm_on_primary</item>
+        <item name="android:colorBackground">@color/sm_background</item>
+        <item name="colorSurface">@color/sm_surface</item>
+        <item name="colorOnSurface">@color/sm_text_primary</item>
+        <item name="colorOnBackground">@color/sm_text_primary</item>
+        <item name="android:textColorPrimary">@color/sm_text_primary</item>
+        <item name="android:textColorSecondary">@color/sm_text_secondary</item>
+        <item name="android:textColorHint">@color/sm_text_hint</item>
     </style>
+
+    <style name="Theme.SmartSpend" parent="Base.Theme.SmartSpend" />
 </resources>

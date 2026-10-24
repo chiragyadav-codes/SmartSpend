@@ -1,10 +1,10 @@
 package com.chirag.smart_spend.transactions
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.chirag.smart_spend.R
 import com.chirag.smart_spend.transactions.model.Transaction
@@ -22,6 +22,7 @@ class TransactionAdapter(
         val tvCategory: TextView = itemView.findViewById(R.id.tvCategory)
         val tvDate: TextView = itemView.findViewById(R.id.tvDate)
         val tvNote: TextView = itemView.findViewById(R.id.tvNote)
+        val tvSource: TextView = itemView.findViewById(R.id.tvSource)
         val tvAmount: TextView = itemView.findViewById(R.id.tvAmount)
     }
 
@@ -33,19 +34,28 @@ class TransactionAdapter(
 
     override fun onBindViewHolder(holder: TransactionViewHolder, position: Int) {
         val transaction = transactions[position]
+        val context = holder.itemView.context
 
         holder.tvCategory.text = transaction.category
-        holder.tvNote.text = transaction.note
 
-        val dateFormat = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
+        val dateFormat = SimpleDateFormat("dd MMM yyyy, hh:mm a", Locale.getDefault())
         holder.tvDate.text = dateFormat.format(Date(transaction.date))
+
+        if (transaction.note.isBlank()) {
+            holder.tvNote.visibility = View.GONE
+        } else {
+            holder.tvNote.visibility = View.VISIBLE
+            holder.tvNote.text = transaction.note
+        }
+
+        holder.tvSource.text = if (transaction.source == "auto") "Auto-detected" else "Added manually"
 
         if (transaction.type == "income") {
             holder.tvAmount.text = "+${transaction.amount}"
-            holder.tvAmount.setTextColor(Color.parseColor("#2E7D32"))
+            holder.tvAmount.setTextColor(ContextCompat.getColor(context, R.color.sm_income))
         } else {
             holder.tvAmount.text = "-${transaction.amount}"
-            holder.tvAmount.setTextColor(Color.parseColor("#C62828"))
+            holder.tvAmount.setTextColor(ContextCompat.getColor(context, R.color.sm_expense))
         }
 
         holder.itemView.setOnClickListener {

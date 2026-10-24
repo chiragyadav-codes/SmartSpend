@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.chirag.smart_spend.R
+import androidx.core.content.ContextCompat
 
 class CategorySummaryAdapter(
     private val summaries: List<CategorySummary>
@@ -27,12 +28,13 @@ class CategorySummaryAdapter(
         val summary = summaries[position]
         holder.tvCategoryName.text = summary.category
 
+        val context = holder.itemView.context
         if (summary.type == "income") {
             holder.tvCategoryAmount.text = "+${summary.totalAmount}"
-            holder.tvCategoryAmount.setTextColor(Color.parseColor("#2E7D32"))
+            holder.tvCategoryAmount.setTextColor(ContextCompat.getColor(context, R.color.sm_income))
         } else {
             holder.tvCategoryAmount.text = "-${summary.totalAmount}"
-            holder.tvCategoryAmount.setTextColor(Color.parseColor("#C62828"))
+            holder.tvCategoryAmount.setTextColor(ContextCompat.getColor(context, R.color.sm_expense))
         }
     }
 

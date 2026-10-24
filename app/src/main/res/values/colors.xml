@@ -2,4 +2,17 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="sm_background">#F5F7FA</color>
+    <color name="sm_surface">#FFFFFF</color>
+    <color name="sm_text_primary">#1A1A1A</color>
+    <color name="sm_text_secondary">#888888</color>
+    <color name="sm_text_hint">#9E9E9E</color>
+    <color name="sm_border">#E0E0E0</color>
+    <color name="sm_primary">#1565C0</color>
+    <color name="sm_on_primary">#FFFFFF</color>
+    <color name="sm_income">#2E7D32</color>
+    <color name="sm_expense">#C62828</color>
+    <color name="sm_suggestion_bg">#F0F4F8</color>
+    <color name="sm_input_border">#E0E0E0</color>
 </resources>
