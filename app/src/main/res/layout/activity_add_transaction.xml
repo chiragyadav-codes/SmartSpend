@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/sm_background">
@@ -11,6 +12,7 @@
         android:padding="24dp">
 
         <TextView
+            android:id="@+id/tvScreenTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
@@ -60,23 +62,116 @@
             android:id="@+id/etCategory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="14dp"
+            android:layout_marginBottom="8dp"
             android:background="@drawable/edittext_rounded_bg"
-            android:hint="Category (e.g. Food, Travel, Salary)"
+            android:hint="Category (type your own or pick below)"
             android:padding="14dp"
             android:textColor="@color/sm_text_primary"
             android:textColorHint="@color/sm_text_hint" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:text="Quick pick"
+            android:textColor="@color/sm_text_secondary"
+            android:textSize="12sp" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroupCategories"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="14dp"
+            app:chipSpacingHorizontal="8dp"
+            app:chipSpacingVertical="4dp"
+            app:selectionRequired="false"
+            app:singleSelection="true" />
 
         <EditText
             android:id="@+id/etNote"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="20dp"
             android:background="@drawable/edittext_rounded_bg"
             android:hint="Note (optional)"
             android:padding="14dp"
             android:textColor="@color/sm_text_primary"
             android:textColorHint="@color/sm_text_hint" />
+
+        <LinearLayout
+            android:id="@+id/layoutBill"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Bill (optional)"
+                android:textColor="@color/sm_text_primary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnTakePhoto"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="6dp"
+                    android:layout_weight="1"
+                    android:text="📷  Take photo" />
+
+                <Button
+                    android:id="@+id/btnPickPhoto"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:layout_weight="1"
+                    android:text="🖼️  Upload" />
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/layoutBillPreview"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:layout_marginTop="12dp"
+                android:background="@color/sm_surface"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/ivBillPreview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="Bill image"
+                    android:scaleType="fitCenter" />
+
+                <TextView
+                    android:id="@+id/tvRemoveBill"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top|end"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/bg_chip"
+                    android:paddingStart="10dp"
+                    android:paddingTop="4dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="4dp"
+                    android:text="Remove"
+                    android:textColor="@color/sm_text_primary"
+                    android:textSize="12sp" />
+
+            </FrameLayout>
+
+        </LinearLayout>
 
         <Button
             android:id="@+id/btnSaveTransaction"

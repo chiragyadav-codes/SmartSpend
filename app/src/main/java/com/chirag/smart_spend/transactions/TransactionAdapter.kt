@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.chirag.smart_spend.R
+import com.chirag.smart_spend.categorization.CategoryIcons
 import com.chirag.smart_spend.transactions.model.Transaction
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -36,7 +37,8 @@ class TransactionAdapter(
         val transaction = transactions[position]
         val context = holder.itemView.context
 
-        holder.tvCategory.text = transaction.category
+        val icon = CategoryIcons.iconFor(transaction.category)
+        holder.tvCategory.text = if (icon != null) "$icon  ${transaction.category}" else transaction.category
 
         val dateFormat = SimpleDateFormat("dd MMM yyyy, hh:mm a", Locale.getDefault())
         holder.tvDate.text = dateFormat.format(Date(transaction.date))
@@ -48,7 +50,12 @@ class TransactionAdapter(
             holder.tvNote.text = transaction.note
         }
 
-        holder.tvSource.text = if (transaction.source == "auto") "Auto-detected" else "Added manually"
+        val sourceText = if (transaction.source == "auto") "Auto-detected" else "Added manually"
+        holder.tvSource.text = if (transaction.billImagePath.isNotEmpty()) {
+            "$sourceText  ·  Bill attached"
+        } else {
+            sourceText
+        }
 
         if (transaction.type == "income") {
             holder.tvAmount.text = "+${transaction.amount}"

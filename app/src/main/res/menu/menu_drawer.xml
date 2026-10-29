@@ -6,6 +6,9 @@
             android:id="@+id/drawer_all_transactions"
             android:title="All transactions" />
         <item
+            android:id="@+id/drawer_budget"
+            android:title="Budget planner" />
+        <item
             android:id="@+id/drawer_notification_access"
             android:title="Notification access" />
         <item

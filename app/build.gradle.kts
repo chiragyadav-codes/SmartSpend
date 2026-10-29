@@ -34,6 +34,7 @@ android {
 
 dependencies {
 
+    implementation(libs.androidx.exifinterface)
     implementation(libs.androidx.recyclerview)
     implementation(libs.androidx.activity.ktx)
     implementation(libs.androidx.appcompat)

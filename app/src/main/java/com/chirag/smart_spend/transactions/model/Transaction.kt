@@ -8,5 +8,6 @@ data class Transaction(
     val category: String = "",
     val note: String = "",
     val date: Long = System.currentTimeMillis(),
-    val source: String = "manual"
+    val source: String = "manual",
+    val billImagePath: String = ""
 )

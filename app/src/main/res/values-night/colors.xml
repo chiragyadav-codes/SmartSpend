@@ -12,4 +12,5 @@
     <color name="sm_expense">#EF5350</color>
     <color name="sm_suggestion_bg">#263238</color>
     <color name="sm_input_border">#FFFFFF</color>
+    <color name="sm_warning">#FFCA28</color>
 </resources>
