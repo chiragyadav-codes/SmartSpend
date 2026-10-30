@@ -6,6 +6,7 @@ import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.chirag.smart_spend.transactions.model.Transaction
+import com.chirag.smart_spend.budget.BudgetAlertChecker
 
 class NotificationListener : NotificationListenerService() {
 
@@ -70,6 +71,7 @@ class NotificationListener : NotificationListenerService() {
             .add(transaction)
             .addOnSuccessListener {
                 Log.d(TAG, "AUTO-SAVED to Firestore successfully — Category: $category")
+                BudgetAlertChecker.check(applicationContext)
             }
             .addOnFailureListener { e ->
                 Log.e(TAG, "AUTO-SAVE FAILED: ${e.message}")

@@ -33,6 +33,11 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 import kotlin.math.min
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
+import androidx.activity.result.contract.ActivityResultContracts
+import com.google.android.material.materialswitch.MaterialSwitch
 
 class BudgetPlannerActivity : AppCompatActivity() {
 
@@ -58,6 +63,19 @@ class BudgetPlannerActivity : AppCompatActivity() {
     private lateinit var tvCategoryEmpty: TextView
     private lateinit var rvCategories: RecyclerView
     private lateinit var layoutTips: LinearLayout
+    private lateinit var switchAlerts: MaterialSwitch
+
+    private val notificationPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { granted ->
+        if (!granted) {
+            Toast.makeText(
+                this,
+                "Notifications are off, so budget alerts cannot be shown",
+                Toast.LENGTH_LONG
+            ).show()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,6 +103,13 @@ class BudgetPlannerActivity : AppCompatActivity() {
         layoutTips = findViewById(R.id.layoutTips)
 
         rvCategories.layoutManager = LinearLayoutManager(this)
+
+        switchAlerts = findViewById(R.id.switchAlerts)
+        switchAlerts.isChecked = BudgetAlertChecker.isEnabled(this)
+        switchAlerts.setOnCheckedChangeListener { _, isChecked ->
+            BudgetAlertChecker.setEnabled(this, isChecked)
+            if (isChecked) askNotificationPermission()
+        }
 
         btnEditBudget.setOnClickListener {
             showAmountDialog(
@@ -369,9 +394,15 @@ class BudgetPlannerActivity : AppCompatActivity() {
     private fun saveMonthlyBudget(amount: Double) {
         db.collection("users").document(userId)
             .set(mapOf("monthlyBudget" to amount), SetOptions.merge())
-            .addOnSuccessListener { loadBudget() }
+            .addOnSuccessListener {
+                loadBudget()
+                askNotificationPermission()
+                BudgetAlertChecker.check(applicationContext)
+            }
             .addOnFailureListener { e -> showSaveError(e.message) }
     }
+
+
 
     private fun removeMonthlyBudget() {
         db.collection("users").document(userId)
@@ -383,7 +414,11 @@ class BudgetPlannerActivity : AppCompatActivity() {
     private fun saveCategoryBudget(category: String, amount: Double) {
         db.collection("users").document(userId)
             .set(mapOf("categoryBudgets" to mapOf(category to amount)), SetOptions.merge())
-            .addOnSuccessListener { loadBudget() }
+            .addOnSuccessListener {
+                loadBudget()
+                askNotificationPermission()
+                BudgetAlertChecker.check(applicationContext)
+            }
             .addOnFailureListener { e -> showSaveError(e.message) }
     }
 
@@ -394,6 +429,14 @@ class BudgetPlannerActivity : AppCompatActivity() {
             .addOnFailureListener { e -> showSaveError(e.message) }
     }
 
+    private fun askNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= 33 &&
+            ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            notificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+        }
+    }
     private fun showSaveError(message: String?) {
         Toast.makeText(this, "Could not save: $message", Toast.LENGTH_SHORT).show()
     }

@@ -1,5 +1,6 @@
 package com.chirag.smart_spend.transactions
 
+import com.chirag.smart_spend.budget.BudgetAlertChecker
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -376,7 +377,7 @@ class AddTransactionActivity : AppCompatActivity() {
         ) {
             BillImageHelper.delete(currentBillPath)
         }
-
+        BudgetAlertChecker.check(applicationContext)
         finish()
     }
 }

@@ -25,6 +25,7 @@ import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
+import com.chirag.smart_spend.budget.HomeBudgetBar
 
 class TransactionsFragment : Fragment(), ToolbarActionHandler {
 
@@ -109,6 +110,7 @@ class TransactionsFragment : Fragment(), ToolbarActionHandler {
                 }
                 showTransactions()
                 showSummary()
+                view?.let { HomeBudgetBar.update(it, allTransactions) }
             }
             .addOnFailureListener { e ->
                 if (!isAdded) return@addOnFailureListener
